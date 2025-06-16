@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenith Acharya - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        /* CSS Variables for Theming */
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --header-bg: #1a1a1a;
+            --section-bg: #2a2a2a;
+            --card-bg: #333333;
+            --accent-color: #818cf8; /* Indigo 400 */
+            --accent-hover: #6366f1; /* Indigo 500 */
+            --glow-color: rgba(129, 140, 248, 0.8); /* Indigo glow */
+            --alt-accent: #a78bfa; /* Purple 400 */
+            --shadow-light: rgba(0, 0, 0, 0.3);
+            --shadow-medium: rgba(0, 0, 0, 0.4);
+            --shadow-dark: rgba(0, 0, 0, 0.6);
+            --btn-active-glow: rgba(129, 140, 248, 0.7);
+            --hero-overlay-start: rgba(18, 18, 18, 0.9);
+            --hero-overlay-end: rgba(18, 18, 18, 0.5);
+        }
+
+        html.light {
+            --bg-color: #f0f4f8; /* Light gray-blue */
+            --text-color: #333333;
+            --header-bg: #ffffff;
+            --section-bg: #e2e8f0;
+            --card-bg: #f9fafb;
+            --accent-color: #4c51bf; /* Deeper indigo */
+            --accent-hover: #3f44a3;
+            --glow-color: rgba(76, 81, 191, 0.5);
+            --alt-accent: #6b46c1; /* Deeper purple */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.15);
+            --btn-active-glow: rgba(76, 81, 191, 0.4);
+            --hero-overlay-start: rgba(240, 244, 248, 0.8);
+            --hero-overlay-end: rgba(240, 244, 248, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Mouse trail particles */
+        #mouse-trail-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background-color: var(--alt-accent); /* Use accent color for particles */
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fadeOutScaleUp 1s forwards ease-out;
+        }
+
+        @keyframes fadeOutScaleUp {
+            0% {
+                transform: scale(0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .hero-section {
+            background-image: url('https://st3.depositphotos.com/18803028/35008/i/450/depositphotos_350081652-stock-photo-software-developer-programming-code-abstract.jpg'); 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden; 
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, var(--hero-overlay-start), var(--hero-overlay-end));
+            animation: subtle-glow 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes subtle-glow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(132, 204, 22, 0.4);
+            }
+            50% {
+                transform: scale(1.01);
+                box-shadow: 0 0 30px rgba(132, 204, 22, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(132, 204, 22, 0.4);
+            }
+        }
+
+        .content-container h1 {
+            animation: text-pulse 3s infinite alternate ease-in-out;
+            text-shadow: 0 0 15px var(--glow-color);
+        }
+
+        @keyframes text-pulse {
+            0% {
+                transform: translateY(0);
+                text-shadow: 0 0 15px var(--glow-color);
+            }
+            50% {
+                transform: translateY(-8px);
+                text-shadow: 0 0 30px var(--glow-color);
+            }
+            100% {
+                transform: translateY(0);
+                text-shadow: 0 0 15px var(--glow-color);
+            }
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 90%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--alt-accent);
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px var(--shadow-light);
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px var(--shadow-medium);
+        }
+        .option-button {
+            background-color: var(--card-bg); /* Use card-bg for these buttons */
+            color: var(--text-color);
+            padding: 0.75rem 1.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+        .option-button:hover {
+            background-color: var(--section-bg); 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-light);
+        }
+        .option-button.active {
+            background-color: var(--accent-color);
+            color: white; /* Ensure text is white when active */
+            box-shadow: 0 0 15px var(--btn-active-glow);
+        }
+        .skill-card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: 0 6px 15px var(--shadow-medium);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .skill-card.animate-fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px var(--shadow-dark);
+        }
+        .skill-icon {
+            margin-bottom: 1.2rem;
+            color: var(--alt-accent);
+            transition: color 0.5s ease;
+        }
+
+        /* Scroll progress bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background-color: var(--accent-color);
+            z-index: 9999;
+            transition: width 0.1s linear, background-color 0.5s ease;
+        }
+
+        /* Theming specific colors for elements that don't transition well with variables alone */
+        header {
+            background-color: var(--header-bg);
+            transition: background-color 0.5s ease;
+        }
+        header nav a {
+            color: var(--text-color);
+            transition: color 0.5s ease;
+        }
+        html.light header nav a:hover {
+            color: #444; /* Darker hover for light mode */
+        }
+        html.dark header nav a:hover {
+            color: #fff; /* Lighter hover for dark mode */
+        }
+
+        section {
+            background-color: var(--section-bg);
+            transition: background-color 0.5s ease;
+        }
+        footer {
+            background-color: var(--header-bg);
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .project-card, .skill-card {
+             background-color: var(--card-bg);
+             transition: background-color 0.5s ease;
+        }
+        .project-card h3, .skill-card p {
+            color: var(--text-color);
+            transition: color 0.5s ease;
+        }
+        .project-card p {
+            color: var(--text-color); /* ensure project descriptions are readable */
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: var(--accent-hover); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+            50% { border-color: var(--accent-color); box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+            100% { border-color: var(--accent-hover); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+        }
+        .animate-pulse-border {
+            animation: pulse-border 2s infinite ease-in-out;
+        }
+
+        /* Light/Dark mode toggle button */
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: auto; /* Push to the right */
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        #theme-toggle:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="scroll-progress"></div>
+    <div id="mouse-trail-container"></div>
+
+    <div class="flex flex-col min-h-screen">
+        <header class="bg-gray-900 p-4 shadow-xl flex justify-center items-center relative z-20">
+            <nav class="flex space-x-8">
+                <a href="#hero-section" class="text-gray-300 hover:text-white nav-link rounded-md px-3 py-2 text-base font-medium">Home</a>
+                <a href="#skills-section" class="text-gray-300 hover:text-white nav-link rounded-md px-3 py-2 text-base font-medium">Skills</a>
+                <a href="#recruiter-projects-section" class="text-gray-300 hover:text-white nav-link rounded-md px-3 py-2 text-base font-medium">Projects</a>
+                <a href="#hire-me-section" class="text-gray-300 hover:text-white nav-link rounded-md px-3 py-2 text-base font-medium">Hire Me</a>
+            </nav>
+            <button id="theme-toggle" aria-label="Toggle dark and light mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <div class="flex justify-center p-4 space-x-4 bg-gray-900 shadow-inner rounded-b-lg relative z-10">
+            <button id="recruiterBtn" class="option-button active">Recruiter</button>
+            <button id="stalkerBtn" class="option-button">Stalker</button>
+        </div>
+
+        <main id="mainContent" class="flex-grow">
+            <section id="hero-section" class="hero-section text-white relative">
+                <div class="hero-overlay"></div>
+                <div class="content-container">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-4 text-indigo-300">Jenith Acharya - JavaScript Developer</h1>
+                    <p class="text-lg md:text-xl leading-relaxed max-w-4xl mb-8 text-gray-200">
+                        Dynamic and results-driven Fullstack Developer in MERN-stack development. I bring expertise in React, Node, and Docker, with a passion for learning DevOps practices. 
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="https://github.com/jenith-acharya?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn-primary flex items-center space-x-2">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Resume</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/jenith-acharya/" target="_blank" rel="noopener noreferrer" class="btn-primary flex items-center space-x-2">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills-section" class="bg-gray-800 p-10 mt-12 rounded-lg shadow-2xl mx-auto max-w-7xl">
+                <h2 class="text-4xl font-semibold mb-8 text-indigo-400 text-center">My Skills</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                    <div class="skill-card">
+                        <i class="fab fa-js-square text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">JavaScript (MERN)</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-linux text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">Linux</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-github text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">GitHub</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-docker text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">Docker</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-palette text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">Figma (Graphics Designer)</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-wind text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">Tailwind CSS</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">TypeScript</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-sync-alt text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">Redux</p>
+                    </div>
+                     <div class="skill-card">
+                        <i class="fas fa-database text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">MongoDB</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-react text-5xl skill-icon"></i>
+                        <p class="text-xl font-medium">React.js</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="recruiter-projects-section" class="bg-gray-800 p-10 mt-12 rounded-lg shadow-2xl mx-auto max-w-7xl">
+                <h2 class="text-4xl font-semibold mb-8 text-center text-indigo-400">Today's Top Picks for Recruiter</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-700 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300 project-card">
+                        <img src="https://legacylegal.com.np/wp-content/uploads/2024/10/Untitled.bmp" alt="Project Thumbnail" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-2xl mb-3">Legacy Legal Services</h3>
+                            <p class="text-base leading-relaxed">Legacy Legal Services is a law firm website designed to showcase the firm's expertise, team, and legal areas of practice. The platform features an admin panel that allows authorized users to securely log in and manage key website content. After logging in, the admin can easily add, edit, or delete information related to the team members, blog posts, and areas of legal practice. This content management system ensures the website remains up-to-date and professional. The secure login ensures only authorized personnel have access to backend features, providing full control over the site’s dynamic content and public presentation.</p>
+                             <div class="mt-4 flex justify-end">
+                                <a href="https://legacylegal.com.np/" target="_blank" rel="noopener noreferrer" class="text-indigo-300 hover:text-indigo-100 font-semibold flex items-center space-x-1">
+                                    <span>View Project</span> <i class="fas fa-external-link-alt text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300 project-card">
+                        <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg?t=2023-12-23-07-14-44" alt="Project Thumbnail" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-2xl mb-3">Car Price Prediction System</h3>
+                            <p class="text-base leading-relaxed">This Python script demonstrates a machine learning workflow for car price prediction. It begins by importing essential libraries like pandas for data manipulation, matplotlib and seaborn for visualization, and scikit-learn for machine learning models. The "car data.csv" dataset is loaded and inspected for its structure, dimensions, and missing values. Categorical features such as 'Fuel_Type', 'Seller_Type', and 'Transmission' are then encoded into numerical representations for model compatibility. Finally, the data is split into features (X) and the target variable (Y - 'Selling_Price'). The dataset is further divided into training and testing sets, preparing it for training a Linear Regression model, which is the first model initiated in the notebook.</p>
+                             <div class="mt-4 flex justify-end">
+                                <a href="https://www.kaggle.com/code/jenithacharya/car-price-prediction-using-linear-regression-and-lasso" target="_blank" rel="noopener noreferrer" class="text-indigo-300 hover:text-indigo-100 font-semibold flex items-center space-x-1">
+                                    <span>View Code</span> <i class="fas fa-external-link-alt text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300 project-card">
+                        <img src="https://i.ibb.co/0yqYk129/Screenshot-2025-06-16-101219.png" alt="Project Thumbnail" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-2xl mb-3">Portfolio Site Frontend</h3>
+                            <p class="text-base leading-relaxed">Jenith Acharya's portfolio site, titled "Jenith Acharya - JavaScript Developer," is a dark-themed, minimalist online presence featuring a navigation bar with links to Home, Skills, Projects, and Hire Me. It includes two prominent buttons: "Recruiter" and "Stalker," hinting at audience-specific content or interactions. The hero section presents a concise self-description as a "Dynamic and results-driven Fullstack Developer in MERN-stack development," highlighting expertise in React, Node, and Docker, with an interest in DevOps. Call-to-action buttons for "Resume" and "LinkedIn" are centrally located. The background appears to have subtle code-like patterns.</p>
+                             <div class="mt-4 flex justify-end">
+                                <a href="#hero-section" class="text-indigo-300 hover:text-indigo-100 font-semibold flex items-center space-x-1">
+                                    <span>View Live</span> <i class="fas fa-external-link-alt text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stalker-projects-section" class="bg-gray-800 p-10 mt-12 rounded-lg shadow-2xl mx-auto max-w-7xl hidden">
+                <h2 class="text-4xl font-semibold mb-8 text-center text-red-400">Stalker Projects Coming Soon!</h2>
+                <p class="text-center text-gray-400 text-lg">
+                    This section will feature more experimental, personal, or niche projects tailored for the curious "stalker." Stay tuned!
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
+                     <div class="bg-gray-700 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300 project-card">
+                        <img src="https://via.placeholder.com/400x250/333/eee?text=Experimental+Project+1" alt="Stalker Project Thumbnail" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-2xl mb-3">My Secret Side Project Alpha</h3>
+                            <p class="text-base leading-relaxed">A deep dive into WebAssembly and real-time audio processing. Still under wraps!</p>
+                             <div class="mt-4 flex justify-end">
+                                <a href="#" class="text-red-300 hover:text-red-100 font-semibold flex items-center space-x-1">
+                                    <span>Peek into Project</span> <i class="fas fa-external-link-alt text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="bg-gray-700 rounded-lg overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300 project-card">
+                        <img src="https://via.placeholder.com/400x250/555/eee?text=Artistic+AI+Tool" alt="Stalker Project Thumbnail" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-2xl mb-3">AI Art Generator Prototype</h3>
+                            <p class="text-base leading-relaxed">Experimenting with generative adversarial networks (GANs) to create abstract art.</p>
+                             <div class="mt-4 flex justify-end">
+                                <a href="#" class="text-red-300 hover:text-red-100 font-semibold flex items-center space-x-1">
+                                    <span>Explore</span> <i class="fas fa-external-link-alt text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+            
+            <section id="hire-me-section" class="bg-gray-900 p-10 mt-12 rounded-lg shadow-2xl mx-auto max-w-6xl flex flex-col items-center text-center">
+                <h2 class="text-4xl font-semibold mb-8 text-indigo-400">Let's Connect!</h2>
+                <img src="https://avatars.githubusercontent.com/u/168971441?v=4" alt="Jenith Acharya" class="rounded-full w-40 h-40 object-cover mb-6 border-4 border-indigo-500 shadow-xl animate-pulse-border">
+                <p class="text-3xl font-bold mb-3">Jenith Acharya</p>
+                <p class="text-xl mb-6 text-gray-300">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+                <a href="mailto:jenithacharya8@gmail.com" class="btn-primary flex items-center space-x-3 text-lg">
+                    <i class="fas fa-envelope"></i>
+                    <span>jenithacharya8@gmail.com</span>
+                </a>
+                <div class="flex space-x-4 mt-6">
+                    <a href="https://github.com/jenith-acharya" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transform hover:scale-125 transition-transform duration-200">
+                        <i class="fab fa-github-square text-4xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/jenith-acharya/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transform hover:scale-125 transition-transform duration-200">
+                        <i class="fab fa-linkedin text-4xl"></i>
+                    </a>
+                    </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-gray-900 p-6 text-center text-gray-500 text-sm mt-12">
+            <p>&copy; 2025 Jenith Acharya. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recruiterBtn = document.getElementById('recruiterBtn');
+            const stalkerBtn = document.getElementById('stalkerBtn');
+            const recruiterProjects = document.getElementById('recruiter-projects-section');
+            const stalkerProjects = document.getElementById('stalker-projects-section');
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('main section[id]');
+            const scrollProgress = document.getElementById('scroll-progress');
+            const skillCards = document.querySelectorAll('.skill-card');
+            const mouseTrailContainer = document.getElementById('mouse-trail-container');
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+
+            // --- Theme Mode Logic ---
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                htmlElement.classList.add(currentTheme);
+                updateThemeToggleIcon(currentTheme);
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // Check for system preference if no theme saved
+                htmlElement.classList.add('dark');
+                updateThemeToggleIcon('dark');
+            } else {
+                htmlElement.classList.add('light'); // Default to light if no preference
+                updateThemeToggleIcon('light');
+            }
+
+            function updateThemeToggleIcon(theme) {
+                if (theme === 'dark') {
+                    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    htmlElement.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                    updateThemeToggleIcon('light');
+                } else {
+                    htmlElement.classList.remove('light');
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    updateThemeToggleIcon('dark');
+                }
+            });
+
+
+            // --- Initial State and Button Handling ---
+            function setActiveProjectSection(type) {
+                if (type === 'recruiter') {
+                    recruiterProjects.classList.remove('hidden');
+                    stalkerProjects.classList.add('hidden');
+                    recruiterBtn.classList.add('active');
+                    stalkerBtn.classList.remove('active');
+                    // Update Projects link in navbar
+                    document.querySelector('a[href="#recruiter-projects-section"]').classList.add('active');
+                    document.querySelector('a[href="#stalker-projects-section"]') && document.querySelector('a[href="#stalker-projects-section"]').classList.remove('active');
+                } else { // type === 'stalker'
+                    recruiterProjects.classList.add('hidden');
+                    stalkerProjects.classList.remove('hidden');
+                    recruiterBtn.classList.remove('active');
+                    stalkerBtn.classList.add('active');
+                    // Update Projects link in navbar
+                    document.querySelector('a[href="#recruiter-projects-section"]').classList.remove('active');
+                    // Assuming you might add a separate nav link for stalker projects eventually
+                    // For now, keep "Projects" active if it points to #recruiter-projects-section implicitly
+                }
+            }
+
+            // Set initial active state
+            setActiveProjectSection('recruiter');
+
+            recruiterBtn.addEventListener('click', function() {
+                setActiveProjectSection('recruiter');
+            });
+
+            stalkerBtn.addEventListener('click', function() {
+                setActiveProjectSection('stalker');
+            });
+
+            // --- Smooth Scrolling for Navigation Links ---
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight + 20; // Added some extra padding
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- Scroll Progress Bar ---
+            window.addEventListener('scroll', () => {
+                const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPosition = window.scrollY;
+                const progress = (scrollPosition / totalHeight) * 100;
+                scrollProgress.style.width = progress + '%';
+            });
+
+            // --- Active Navigation Link Indicator and Scroll-in Animations ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '-50% 0px -49% 0px', // Adjust these values to fine-tune active section detection
+                threshold: 0 // Only needs to enter viewport for a moment
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all nav links
+                        navLinks.forEach(link => link.classList.remove('active'));
+
+                        // Add active class to the link corresponding to the intersecting section
+                        const activeLink = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+
+                        // Animate skill cards on scroll if not already animated
+                        if (entry.target.id === 'skills-section') {
+                            skillCards.forEach((card, index) => {
+                                if (!card.classList.contains('animate-fade-in')) { // Only animate once
+                                    setTimeout(() => {
+                                        card.classList.add('animate-fade-in');
+                                    }, index * 100); // Stagger animation
+                                }
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observe sections for active link and animations
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Mouse Cursor Animation (Particle Effect) ---
+            function createParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                // Random size for variety
+                const size = Math.random() * 8 + 4; // Between 4px and 12px
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                mouseTrailContainer.appendChild(particle);
+
+                // Animate and remove
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000); // Matches animation duration
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                if (Math.random() > 0.7) { // Don't create a particle on every pixel, reduce density
+                    createParticle(e.clientX, e.clientY);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
