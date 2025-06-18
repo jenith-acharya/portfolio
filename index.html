@@ -9,7 +9,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-        /* CSS Variables for Theming */
+        
         :root {
             --bg-color: #121212;
             --text-color: #e0e0e0;
@@ -55,20 +55,20 @@
             transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        /* Mouse trail particles */
+        
         #mouse-trail-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Allows clicks to pass through */
+            pointer-events: none; 
             z-index: 9999;
             overflow: hidden;
         }
         .particle {
             position: absolute;
-            background-color: var(--alt-accent); /* Use accent color for particles */
+            background-color: var(--alt-accent); 
             border-radius: 50%;
             opacity: 0.8;
             animation: fadeOutScaleUp 1s forwards ease-out;
@@ -187,7 +187,7 @@
             box-shadow: 0 6px 15px var(--shadow-medium);
         }
         .option-button {
-            background-color: var(--card-bg); /* Use card-bg for these buttons */
+            background-color: var(--card-bg); 
             color: var(--text-color);
             padding: 0.75rem 1.75rem;
             border-radius: 0.5rem;
@@ -202,7 +202,7 @@
         }
         .option-button.active {
             background-color: var(--accent-color);
-            color: white; /* Ensure text is white when active */
+            color: white; 
             box-shadow: 0 0 15px var(--btn-active-glow);
         }
         .skill-card {
@@ -229,7 +229,7 @@
             transition: color 0.5s ease;
         }
 
-        /* Scroll progress bar */
+        
         #scroll-progress {
             position: fixed;
             top: 0;
@@ -287,7 +287,6 @@
             animation: pulse-border 2s infinite ease-in-out;
         }
 
-        /* Light/Dark mode toggle button */
         #theme-toggle {
             background: none;
             border: none;
@@ -658,11 +657,11 @@
                 // Animate and remove
                 setTimeout(() => {
                     particle.remove();
-                }, 1000); // Matches animation duration
+                }, 1000); 
             }
 
             document.addEventListener('mousemove', (e) => {
-                if (Math.random() > 0.7) { // Don't create a particle on every pixel, reduce density
+                if (Math.random() > 0.7) { 
                     createParticle(e.clientX, e.clientY);
                 }
             });
