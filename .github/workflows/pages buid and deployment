@@ -1,0 +1,28 @@
+name: Deploy Static HTML to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # or 'master', whichever is your default
+
+permissions:
+  contents: write  # required to push to the `gh-pages` branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload static site files
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: .  # Path to where your index.html is (root of repo)
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
